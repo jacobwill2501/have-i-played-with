@@ -13,5 +13,6 @@
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
-  }
+  },
+  "packageManager": "pnpm@10.29.1+sha256.958f3137511c16c30a3102d52229c695311661e0e2ed7af8d4f3c4a43f73335d"
 }
