@@ -8,6 +8,9 @@
     "start": "pnpm --filter server start",
     "lint": "pnpm --filter client lint && pnpm --filter server lint"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "devDependencies": {
     "concurrently": "^9.1.0"
   }
