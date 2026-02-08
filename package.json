@@ -1,0 +1,14 @@
+{
+  "name": "have-i-played-with",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter server dev\" \"pnpm --filter client dev\"",
+    "build": "pnpm --filter server build && pnpm --filter client build",
+    "start": "pnpm --filter server start",
+    "lint": "pnpm --filter client lint && pnpm --filter server lint"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

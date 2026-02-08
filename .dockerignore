@@ -1,0 +1,12 @@
+node_modules
+dist
+build
+.env
+.env.local
+.git
+.claude
+coverage
+cypress/screenshots
+cypress/videos
+*.log
+.DS_Store
