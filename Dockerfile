@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY server/package.json server/
 COPY client/package.json client/
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 # Build
 COPY server/ server/
@@ -22,7 +22,7 @@ WORKDIR /app
 
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY server/package.json server/
-RUN pnpm install --frozen-lockfile --prod --filter server
+RUN pnpm install --prod --filter server
 
 COPY --from=base /app/server/dist server/dist
 COPY --from=base /app/client/dist client/dist
