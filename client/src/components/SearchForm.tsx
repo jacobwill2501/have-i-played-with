@@ -205,7 +205,9 @@ export function SearchForm({ onSearch, onCancel, isSearching }: SearchFormProps)
               >
                 <ToggleButton value="season">Current Season</ToggleButton>
                 <ToggleButton value="year">Last Year</ToggleButton>
-                <ToggleButton value="all">All History</ToggleButton>
+                <Tooltip title="Riot retains match data for approximately 2 years. Older matches may not be available." arrow>
+                  <ToggleButton value="all">All History</ToggleButton>
+                </Tooltip>
               </ToggleButtonGroup>
             </Box>
           </>
