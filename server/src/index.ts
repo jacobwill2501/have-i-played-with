@@ -18,7 +18,16 @@ const PORT = process.env.PORT || 3001;
 
 // Security headers
 app.use(helmet({
-  contentSecurityPolicy: isProduction ? undefined : false,
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "https://ddragon.leagueoflegends.com", "data:"],
+      connectSrc: ["'self'", "https://ddragon.leagueoflegends.com"],
+      fontSrc: ["'self'"],
+    },
+  },
   crossOriginEmbedderPolicy: false,
 }));
 
