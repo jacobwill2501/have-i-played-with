@@ -12,7 +12,7 @@ export function SearchProgress({
   status,
   matchCount,
 }: SearchProgressProps) {
-  if (status === "idle") return null;
+  if (status !== "searching") return null;
 
   return (
     <Box
