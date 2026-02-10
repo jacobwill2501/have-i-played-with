@@ -21,11 +21,12 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://pagead2.googlesyndication.com", "https://www.googletagservices.com", "https://adservice.google.com", "https://tpc.googlesyndication.com", "'unsafe-inline'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "https://ddragon.leagueoflegends.com", "data:"],
-      connectSrc: ["'self'", "https://ddragon.leagueoflegends.com"],
-      fontSrc: ["'self'"],
+      imgSrc: ["'self'", "https://ddragon.leagueoflegends.com", "https://pagead2.googlesyndication.com", "https://www.google.com", "data:"],
+      connectSrc: ["'self'", "https://ddragon.leagueoflegends.com", "https://pagead2.googlesyndication.com", "https://adservice.google.com"],
+      frameSrc: ["https://googleads.g.doubleclick.net", "https://tpc.googlesyndication.com", "https://www.google.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
     },
   },
   crossOriginEmbedderPolicy: false,
