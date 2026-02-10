@@ -9,6 +9,10 @@ import {
   Typography,
   Tabs,
   Tab,
+  InputAdornment,
+  Menu,
+  MenuItem,
+  Chip,
 } from "@mui/material";
 import { SxProps, Theme } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
@@ -16,8 +20,8 @@ import PeopleIcon from "@mui/icons-material/People";
 import CancelIcon from "@mui/icons-material/Cancel";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import TagIcon from "@mui/icons-material/Tag";
-import { RegionSelect } from "./RegionSelect";
-import { SearchDepth, SearchMode, SearchParams } from "../types";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { SearchDepth, SearchMode, SearchParams, REGIONS } from "../types";
 
 const modernInputSx: SxProps<Theme> = {
   "& .MuiOutlinedInput-root": {
@@ -50,6 +54,69 @@ const modernInputSx: SxProps<Theme> = {
     },
   },
 };
+
+function RegionAdornment({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const label = REGIONS.find((r) => r.value === value)?.label || value;
+
+  return (
+    <InputAdornment position="end">
+      <Chip
+        label={label}
+        size="small"
+        deleteIcon={<ArrowDropDownIcon sx={{ fontSize: 18 }} />}
+        onDelete={(e) => setAnchorEl(e.currentTarget.closest(".MuiChip-root"))}
+        onClick={(e) => setAnchorEl(e.currentTarget)}
+        sx={{
+          fontWeight: 700,
+          fontSize: "0.75rem",
+          height: 28,
+          borderRadius: 1.5,
+          background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+          color: "#fff",
+          cursor: "pointer",
+          "& .MuiChip-deleteIcon": {
+            color: "rgba(255,255,255,0.7)",
+            "&:hover": { color: "#fff" },
+          },
+        }}
+      />
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={() => setAnchorEl(null)}
+        slotProps={{
+          paper: {
+            sx: {
+              maxHeight: 300,
+              minWidth: 100,
+            },
+          },
+        }}
+      >
+        {REGIONS.map((r) => (
+          <MenuItem
+            key={r.value}
+            selected={r.value === value}
+            onClick={() => {
+              onChange(r.value);
+              setAnchorEl(null);
+            }}
+            sx={{ fontWeight: r.value === value ? 700 : 400, fontSize: "0.9rem" }}
+          >
+            {r.label}
+          </MenuItem>
+        ))}
+      </Menu>
+    </InputAdornment>
+  );
+}
 
 interface SearchFormProps {
   onSearch: (params: SearchParams) => void;
@@ -116,12 +183,10 @@ export function SearchForm({ onSearch, onCancel, isSearching }: SearchFormProps)
       </Tabs>
 
       <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-        <RegionSelect value={region} onChange={setRegion} />
-
         <Box>
           <Typography
             variant="body2"
-            sx={{ mb: 1, fontWeight: 600, color: "text.primary", fontSize: "0.85rem" }}
+            sx={{ mb: 1, fontWeight: 600, color: "text.primary", fontSize: "1rem" }}
           >
             Your Riot ID
           </Typography>
@@ -138,8 +203,15 @@ export function SearchForm({ onSearch, onCancel, isSearching }: SearchFormProps)
               placeholder="NA1"
               value={playerTag}
               onChange={(e) => setPlayerTag(e.target.value)}
-              sx={{ flex: 1, ...modernInputSx }}
+              sx={{ width: 160, flexShrink: 0, ...modernInputSx }}
               size="medium"
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <RegionAdornment value={region} onChange={setRegion} />
+                  ),
+                },
+              }}
             />
           </Box>
         </Box>
@@ -149,7 +221,7 @@ export function SearchForm({ onSearch, onCancel, isSearching }: SearchFormProps)
             <Box>
               <Typography
                 variant="body2"
-                sx={{ mb: 1, fontWeight: 600, color: "text.primary", fontSize: "0.85rem" }}
+                sx={{ mb: 1, fontWeight: 600, color: "text.primary", fontSize: "1rem" }}
               >
                 Search for Player
               </Typography>
@@ -166,8 +238,15 @@ export function SearchForm({ onSearch, onCancel, isSearching }: SearchFormProps)
                   placeholder="NA1"
                   value={targetTag}
                   onChange={(e) => setTargetTag(e.target.value)}
-                  sx={{ flex: 1, ...modernInputSx }}
+                  sx={{ width: 160, flexShrink: 0, ...modernInputSx }}
                   size="medium"
+                  slotProps={{
+                    input: {
+                      endAdornment: (
+                        <RegionAdornment value={region} onChange={setRegion} />
+                      ),
+                    },
+                  }}
                 />
               </Box>
             </Box>
@@ -178,7 +257,7 @@ export function SearchForm({ onSearch, onCancel, isSearching }: SearchFormProps)
               >
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 600, color: "text.primary", fontSize: "0.85rem" }}
+                  sx={{ fontWeight: 600, color: "text.primary", fontSize: "1rem" }}
                 >
                   Search Depth
                 </Typography>
