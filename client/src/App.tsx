@@ -68,6 +68,7 @@ function App() {
             gap: 3,
             px: 2,
             py: 6,
+            minHeight: "100%",
           }}
         >
           {/* Left ad — desktop only */}
