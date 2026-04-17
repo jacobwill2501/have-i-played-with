@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: have-i-played-with-server
+    runtime: node
+    buildCommand: corepack enable pnpm && pnpm install && pnpm --filter server build
+    startCommand: node server/dist/index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ALLOWED_ORIGINS
+        value: https://jacobwill2501.github.io
+      - key: RIOT_API_KEY
+        sync: false
