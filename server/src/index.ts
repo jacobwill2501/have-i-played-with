@@ -2,7 +2,6 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import path from "path";
 import searchRouter from "./routes/search";
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -54,15 +53,6 @@ app.use("/api", searchRouter);
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
-
-// In production, serve the client build
-if (isProduction) {
-  const clientDist = path.join(__dirname, "../../client/dist");
-  app.use(express.static(clientDist));
-  app.get("*", (_req, res) => {
-    res.sendFile(path.join(clientDist, "index.html"));
-  });
-}
 
 const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT} (${isProduction ? "production" : "development"})`);

@@ -8,6 +8,8 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: NODE_VERSION
+        value: "22"
       - key: ALLOWED_ORIGINS
         value: https://jacobwill2501.github.io
       - key: RIOT_API_KEY
